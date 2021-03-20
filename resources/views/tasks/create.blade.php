@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><div style="float: left"> {{ __('Naujos užduoties pridėjimas') }} </div> <div style="float: right"> <a class="btn btn-primary" href="{{ route('clients.show', $_GET['client']) }}" > {{ __('Grįžti') }} </a> </div> </div>
+                <div class="card-header"><div style="float: left"> {{ __('Naujos užduoties pridėjimas') }} </div> <div style="float: right"> <a class="btn btn-primary" href="{{ route('clients.show', $_GET['client']) }}" > <i class="fas fa-arrow-left"></i> </a> </div> </div>
 
                 <div class="card-body">
                     @if (session('status'))

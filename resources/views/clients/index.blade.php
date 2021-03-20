@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-lg">
             <div class="card">
-                <div class="card-header"><div style="float: left"> <strong style="font-size:18pt" > {{ __('Klientų sąrašas') }} </strong> </div> <div style="float: right"> <a class="btn btn-primary" href="{{ route('clients.create') }}" > {{ __('Pridėti klientą') }} </a> </div> </div>
+                <div class="card-header"><div style="float: left"> <strong style="font-size:18pt" > {{ __('Klientų sąrašas') }} </strong> </div> <div style="float: right"> <a class="btn btn-primary" href="{{ route('clients.create') }}" > <i class="fas fa-plus"></i> </a> </div> </div>
 
                 <div class="card-body">
                     @if (session('status'))

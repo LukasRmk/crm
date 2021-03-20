@@ -11,7 +11,7 @@
                         <strong style="font-size: 16pt;" >&nbsp;Vartotojo profilis</strong> 
                     </div> 
                     <div style="float: right"> 
-                        <a class="btn btn-primary" href="{{ route('user.edit', $user->id) }}">Redaguoti</a>
+                        <a class="btn btn-primary" href="{{ route('user.edit', $user->id) }}"><i class="far fa-edit"></i></a>
                     </div> 
                 </div>
 

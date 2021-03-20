@@ -12,11 +12,11 @@
                     </div> 
                     <div style="float: right"> 
                         <form action="{{ route('tasks.destroy', $task->id) }}" method="POST">
-                            <a class="btn btn-info" href="{{ route('tasks.edit', $task->id) }}">Redaguoti</a>
+                            <a class="btn btn-info" href="{{ route('tasks.edit', $task->id) }}"><i class="far fa-edit"></i></a>
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger" >Trinti</button>
-                            <a class="btn btn-primary" href="{{ route('clients.show', $task->client_id) }}" > {{ __('Grįžti') }} </a> 
+                            <button type="submit" class="btn btn-danger" ><i class="far fa-trash-alt"></i></button>
+                            <a class="btn btn-primary" href="{{ route('clients.show', $task->client_id) }}" > <i class="fas fa-arrow-left"></i> </a> 
                         </form>
                     </div> 
                 </div>

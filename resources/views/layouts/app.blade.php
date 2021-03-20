@@ -16,6 +16,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link href="{{ URL::asset('css//all.css') }}" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -28,7 +29,7 @@
                     {{ __('Klientų valdymo sistema') }}
                 </a>
                 <a class="navbar-item" href="{{ route('clients.index') }}">
-                    {{ __('Klientų sąrašas') }}
+                    <i class="far fa-address-book"></i> {{ __('Klientų sąrašas') }}
                 </a>
                 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -61,12 +62,12 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('user.show', Auth::user()->id) }}" >
-                                        {{ __('Mano profilis') }}
+                                        <i class="fas fa-user"></i> {{ __('Mano profilis') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Atsijungti') }}
+                                       <i class="fas fa-sign-out-alt"></i> {{ __('Atsijungti') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

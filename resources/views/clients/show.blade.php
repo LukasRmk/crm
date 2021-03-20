@@ -40,11 +40,11 @@
                             <div style="float: right"> 
                                 <form action="{{ route('clients.destroy', $client->id) }}" method="POST">
                                     <i class="ni ni-settings-gear-65"></i>
-                                    <a class="btn btn-sm btn-primary" href="{{ route('clients.edit', $client->id) }}">Redaguoti</a>
+                                    <a class="btn btn-sm btn-primary" href="{{ route('clients.edit', $client->id) }}"><i class="far fa-edit"></i></a>
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Ar tikrai norite ištrinti klientą?')" >Trinti</button>
-                                    <!-- <a class="btn btn-sm btn-primary" href="{{ route('clients.index') }}" > {{ __('Grįžti') }} </a> --> 
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Ar tikrai norite ištrinti klientą?')" ><i class="far fa-trash-alt"></i></button>
+                                    <!-- <a class="btn btn-sm btn-primary" href="{{ route('clients.index') }}" > <i class="fas fa-arrow-left"></i> </a> --> 
                                 </form>
                             </div> 
                         </div>
@@ -98,7 +98,7 @@
                                 <strong style="font-size: 16pt" >Kontaktai</strong> 
                             </div>
                             <div style="float: right">
-                                <a title="Planuoti užduotį" class="btn btn-sm btn-success" href="{{ route('contacts.create', ['client' => $client->id]) }}">Pridėti kontaktą</a>
+                                <a title="Pridėti kontaktą" class="btn btn-sm btn-success" href="{{ route('contacts.create', ['client' => $client->id]) }}"><i class="fas fa-plus"></i></a>
                             </div>
                         </div>
                         <div class="card-body" style="overflow-y: scroll;">
@@ -112,8 +112,8 @@
                                             <form action="{{ route('contacts.destroy', $contact->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <a class="btn btn-sm btn-primary" href="{{ route('contacts.edit', $contact->id) }}">Redaguoti</a>
-                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Ar tikrai norite ištrinti klientą?')" >Trinti</button>
+                                                <a class="btn btn-sm btn-primary" href="{{ route('contacts.edit', $contact->id) }}"><i class="far fa-edit"></i></a>
+                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Ar tikrai norite ištrinti klientą?')" ><i class="far fa-trash-alt"></i></button>
                                             </form> 
                                         </div><br>
                                         <div style="font-size:11pt" >{{ $contact->position }} </div> 
@@ -142,7 +142,7 @@
                         <strong style="font-size: 16pt" >Užduotys</strong> 
                     </div> 
                     <div style="float: right"> 
-                        <a title="Planuoti užduotį" class="btn btn-sm btn-success" href="{{ route('tasks.create', ['client' => $client->id]) }}">Planuoti užduotį</a>
+                        <a title="Planuoti užduotį" class="btn btn-sm btn-success" href="{{ route('tasks.create', ['client' => $client->id]) }}"><i class="fas fa-plus"></i></a>
                     </div> 
                 </div>
 
@@ -197,7 +197,7 @@
                         <strong style="font-size: 16pt" >Pardavimai</strong> 
                     </div> 
                     <div style="float: right"> 
-                        <a title="Planuoti užduotį" class="btn btn-sm btn-success" href="{{ route('tasks.create', ['client' => $client->id]) }}">Kurti pardavimą</a>
+                        <a title="Planuoti užduotį" class="btn btn-sm btn-success" href="{{ route('tasks.create', ['client' => $client->id]) }}"><i class="fas fa-plus"></i></a>
                     </div> 
                 </div>
 

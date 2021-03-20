@@ -17,6 +17,7 @@ class CreateTasksTable extends Migration
             $table->id();
             $table->integer('type_id');
             $table->integer('client_id');
+            $table->integer('sale_id')->default(0);
             $table->string('task_name');
             $table->text('task_description');
             $table->dateTime('task_datetime');

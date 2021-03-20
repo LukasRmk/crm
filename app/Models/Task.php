@@ -18,7 +18,8 @@ class Task extends Model
         'client_id',
         'task_completed',
         'task_succesful',
-        'added_by'
+        'added_by',
+        'sale_id'
     ];
 
     public static function findByClient($client_id){

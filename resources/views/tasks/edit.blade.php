@@ -10,8 +10,8 @@
                     <form action="{{ route('tasks.destroy', $task->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger" onclick="return confirm('Ar tikrai norite ištrinti užduotį?')" >Trinti</button>
-                        <a class="btn btn-primary" href="{{ route('clients.show', $task->client_id) }}" > {{ __('Grįžti') }} </a> 
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Ar tikrai norite ištrinti užduotį?')" ><i class="far fa-trash-alt"></i></button>
+                        <a class="btn btn-primary" href="{{ route('clients.show', $task->client_id) }}" > <i class="fas fa-arrow-left"></i> </a> 
                     </form>
                 </div> </div>
 
@@ -121,7 +121,7 @@
                                     <form action="{{ route('destroyComment', $comment->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger" >Trinti</button>
+                                        <button type="submit" class="btn btn-danger" ><i class="far fa-trash-alt"></i></button>
                                     </form> 
                                 </div><br>
 

@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><div style="float: left"> <strong>{{ $client->name }} redagavimas </div> </strong> <div style="float: right"> <a class="btn btn-primary" href="{{ route('clients.show', $client->id) }}" > {{ __('Grįžti') }} </a> </div> </div>
+                <div class="card-header"><div style="float: left"> <strong>{{ $client->name }} redagavimas </div> </strong> <div style="float: right"> <a class="btn btn-primary" href="{{ route('clients.show', $client->id) }}" > <i class="fas fa-arrow-left"></i> </a> </div> </div>
 
                 <div class="card-body">
                     @if (session('status'))

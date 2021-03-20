@@ -6,6 +6,9 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\WindowController;
+use App\Http\Controllers\StageController;
+use App\Http\Controllers\SalesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,3 +28,6 @@ Route::delete('/tasks/destroyComment/{comment}', [TaskController::class, 'destro
 Route::resource('tasks', TaskController::class)->middleware("auth");
 Route::resource('user', UserController::class)->middleware("auth");
 Route::resource('contacts', ContactController::class)->middleware("auth");
+Route::resource('windows', WindowController::class)->middleware("auth");
+Route::resource('stages', StageController::class)->middleware("auth");
+Route::resource('sales', SalesController::class)->middleware("auth");

@@ -194,10 +194,11 @@
             <div class="card" style="height: 86vh;">
                 <div class="card-header">
                     <div style="float: left">
-                        <strong style="font-size: 16pt" >Pardavimai</strong> 
+                        <strong style="font-size: 16pt" >Pardavimai</strong>
+                        &nbsp;<a title="Langų nustaymai" class="btn btn-sm btn-light" href="{{ route('windows.index') }}" ><i class="fas fa-cogs"></i></a>
                     </div> 
                     <div style="float: right"> 
-                        <a title="Planuoti užduotį" class="btn btn-sm btn-success" href="{{ route('tasks.create', ['client' => $client->id]) }}"><i class="fas fa-plus"></i></a>
+                        <a title="Planuoti pardavimą" class="btn btn-sm btn-success" href="{{ route('tasks.create', ['client' => $client->id]) }}"><i class="fas fa-plus"></i></a>
                     </div> 
                 </div>
 

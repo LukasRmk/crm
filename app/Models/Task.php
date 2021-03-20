@@ -27,7 +27,7 @@ class Task extends Model
         $tasks = Task::select("tasks.*", "task_types.type_name")
                     ->where("client_id", $client_id)
                     ->leftJoin("task_types", "task_types.id", "=", "tasks.type_id")
-                    ->orderBy("task_datetime")
+                    ->orderBy("task_datetime", "DESC")
                     ->get();
     
         return $tasks;          

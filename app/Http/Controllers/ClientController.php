@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Task;
 use App\Models\Contact;
 use App\Models\User;
+use App\Models\Sale;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -63,7 +64,8 @@ class ClientController extends Controller
     {
         $tasks = Task::findByClient($client->id);
         $contacts = Contact::findByClient($client->id);
-        return view('clients.show', compact(['client', 'tasks', 'contacts']));
+        $sales = Sale::findByClient($client->id);
+        return view('clients.show', compact(['client', 'tasks', 'contacts', 'sales']));
     }
 
     /**

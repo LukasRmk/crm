@@ -16,7 +16,7 @@ class WindowController extends Controller
     public function index()
     {
         $windows = Window::all();
-        $stages = Stage::all();
+        $stages = Stage::getOrdered();
         return view('windows.index', compact('windows', 'stages'));
     }
 

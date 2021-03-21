@@ -33,6 +33,17 @@ class Task extends Model
         return $tasks;          
     }
 
+    public static function findBySale($sale_id){
+        
+        $tasks = Task::select("tasks.*", "task_types.type_name")
+                    ->where("sale_id", $sale_id)
+                    ->leftJoin("task_types", "task_types.id", "=", "tasks.type_id")
+                    ->orderBy("task_datetime", "DESC")
+                    ->get();
+    
+        return $tasks;          
+    }
+
     public static function findTaskType($type_id){
 
         $task_type = DB::table("task_types")->where("id", "=", $type_id)->get();

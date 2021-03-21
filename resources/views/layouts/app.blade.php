@@ -12,10 +12,15 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- Font awesome icons -->
     <link href="{{ URL::asset('css//all.css') }}" rel="stylesheet">
 
     <!-- Styles -->
@@ -28,9 +33,6 @@
                 <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ __('Klientų valdymo sistema') }}
                 </a>
-                <a class="navbar-item" href="{{ route('clients.index') }}">
-                    <i class="far fa-address-book"></i> {{ __('Klientų sąrašas') }}
-                </a>
                 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -39,6 +41,18 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        @guest
+
+                        @else
+
+                            <a class="navbar-item" href="{{ route('clients.index') }}">
+                                <i class="far fa-address-book"></i> {{ __('Klientų sąrašas') }}
+                            </a>
+                            &nbsp;&nbsp;
+                            <a class="navbar-item" href="{{ route('sales.index') }}">
+                                <i class="fas fa-euro-sign"></i> {{ __('Pardavimai') }}
+                            </a>
+                        @endguest
 
                     </ul>
 
@@ -55,6 +69,7 @@
                                 </li>
                             @endif
                         @else
+                        
                             <li class="nav-item dropdown">
                                 <img src="{{ URL::asset('avatars/'.Auth::user()->avatar) }}" alt="Avatar" style="width: 40px; height:40px; float:left; border-radius:50%; {{ App\Models\User::getLevel(Auth::user()->user_xp)->border }} " >
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

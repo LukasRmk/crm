@@ -35,16 +35,16 @@
                     <div class="card" style="height: 39vh;" >
                         <div class="card-header">
                             <div style="float: left">
-                                <strong style="font-size: 16pt" >{{ $client->name }}</strong> 
+                                <strong style="font-size: 16pt" >{{ $sale->name }}</strong> 
                             </div> 
                             <div style="float: right"> 
-                                <form action="{{ route('clients.destroy', $client->id) }}" method="POST">
+                                <form action="{{ route('sales.destroy', $sale->id) }}" method="POST">
                                     <i class="ni ni-settings-gear-65"></i>
-                                    <a class="btn btn-sm btn-primary" href="{{ route('clients.edit', $client->id) }}"><i class="far fa-edit"></i></a>
+                                    <a class="btn btn-sm btn-primary" href="{{ route('sales.edit', $sale->id) }}"><i class="far fa-edit"></i></a>
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Ar tikrai norite ištrinti klientą?')" ><i class="far fa-trash-alt"></i></button>
-                                    <!-- <a class="btn btn-sm btn-primary" href="{{ route('clients.index') }}" > <i class="fas fa-arrow-left"></i> </a> --> 
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Ar tikrai norite ištrinti pardavimą?')" ><i class="far fa-trash-alt"></i></button>
+                                    <a class="btn btn-sm btn-primary" title="Klientas" href="{{ route('clients.show', $sale->client_id) }}" > <i class="fas fa-arrow-left"></i> </a>
                                 </form>
                             </div> 
                         </div>
@@ -60,24 +60,20 @@
                                 <table class="table" style="table-layout: fixed;">
                                     <thead class="thead-light">
                                         <tr>
-                                            <th>Šalis</th>
-                                            <td><strong>{{ $client->country }}</strong></td>
+                                            <th>Kaina (€)</th>
+                                            <td><strong>{{ $sale->price }}</strong></td>
                                         </tr>
                                         <tr>
-                                            <th>Miestas</th>
-                                            <td><strong>{{ $client->town }}</strong></td>
+                                            <th>Pardavėjas</th>
+                                            <td><strong>{{ $sale->user_name }}</strong></td>
                                         </tr>
                                         <tr>
-                                            <th>Adresas</th>
-                                            <td><strong>{{ $client->address }}</strong></td>
+                                            <th>Langas</th>
+                                            <td><strong>{{ $sale->window_name }}</strong></td>
                                         </tr>
                                         <tr>
-                                            <th>Pašto kodas</th>
-                                            <td><strong>{{ $client->postal_code }}</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <th>Svetainė</th>
-                                            <td><a href="https://{{ $client->web }}" target="_blank">{{ $client->web }}</a></td>
+                                            <th>Stadija</th>
+                                            <td><strong>{{ $sale->stage_name }}</strong></td>
                                         </tr>
                                     </thead>
                                 </table>
@@ -98,7 +94,7 @@
                                 <strong style="font-size: 16pt" >Kontaktai</strong> 
                             </div>
                             <div style="float: right">
-                                <a title="Pridėti kontaktą" class="btn btn-sm btn-success" href="{{ route('contacts.create', ['client' => $client->id]) }}"><i class="fas fa-plus"></i></a>
+                                <a title="Pridėti kontaktą" class="btn btn-sm btn-success" href="{{ route('contacts.create', ['client' => $sale->client_id]) }}"><i class="fas fa-plus"></i></a>
                             </div>
                         </div>
                         <div class="card-body" style="overflow-y: scroll;">
@@ -139,10 +135,10 @@
             <div class="card" style="height: 86vh;">
                 <div class="card-header">
                     <div style="float: left">
-                        <strong style="font-size: 16pt" >Užduotys</strong> 
+                        <strong style="font-size: 16pt" >Pardavimo užduotys</strong> 
                     </div> 
                     <div style="float: right"> 
-                        <a title="Planuoti užduotį" class="btn btn-sm btn-success" href="{{ route('tasks.create', ['client' => $client->id]) }}"><i class="fas fa-plus"></i></a>
+                        <a title="Planuoti užduotį" class="btn btn-sm btn-success" href="{{ route('tasks.create', ['client' => $sale->client_id, 'sale' => $sale->id]) }}"><i class="fas fa-plus"></i></a>
                     </div> 
                 </div>
 
@@ -167,23 +163,19 @@
                         <tbody>
                             @foreach ($tasks as $task)
 
-                            <tr>
-                                @if ($task->sale_id != 0)
-                                     <td> <i class="fas fa-euro-sign"></i> {{ $task->type_name }}</td>
-                                @else
+                                <tr>
                                     <td>{{ $task->type_name }}</td>
-                                @endif
-                                    <td style="white-space: nowrap;overflow: hidden; text-overflow: ellipsis;" > <a href="{{ route('tasks.edit', $task->id) }}">  {{ $task->task_name }} </a> </td>
-                                <td>
-                                    <span class="status">{{ gmdate('Y-m-d H:i', strtotime($task->task_datetime))  }}</span>
-                                </td>
-                                <td>
-                                    <span class="badge badge-lg badge-pill {{  ($task->task_completed == 1 ? 'badge-success' : 'badge-danger') }} ">{{  ($task->task_completed == 1 ? ' TAIP ' : ' NE ') }}</span>
-                                </td>
-                                <td>
-                                    <span class="badge badge-lg badge-pill {{  ($task->task_succesful == 1 ? 'badge-success' : 'badge-danger') }} ">{{  ($task->task_succesful == 1 ? ' TAIP ' : ' NE ') }}</span>
-                                </td>
-                            </tr>
+                                    <td style="white-space: nowrap;overflow: hidden; text-overflow: ellipsis;" > <a href="{{ route('tasks.edit', [$task->id, 'sale'] ) }}"> {{ $task->task_name }} </a> </td>
+                                    <td>
+                                        <span class="status">{{ gmdate('Y-m-d H:i', strtotime($task->task_datetime))  }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-lg badge-pill {{  ($task->task_completed == 1 ? 'badge-success' : 'badge-danger') }} ">{{  ($task->task_completed == 1 ? ' TAIP ' : ' NE ') }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-lg badge-pill {{  ($task->task_succesful == 1 ? 'badge-success' : 'badge-danger') }} ">{{  ($task->task_succesful == 1 ? ' TAIP ' : ' NE ') }}</span>
+                                    </td>
+                                </tr>
                                 
                             @endforeach
                         </tbody>
@@ -192,55 +184,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- Pardavimai -->
-        <div class="col col-md">
-            <div class="card" style="height: 86vh;">
-                <div class="card-header">
-                    <div style="float: left">
-                        <strong style="font-size: 16pt" >Pardavimai</strong>
-                        &nbsp;<a title="Langų nustaymai" class="btn btn-sm btn-light" href="{{ route('windows.index') }}" ><i class="fas fa-cogs"></i></a>
-                    </div> 
-                    <div style="float: right"> 
-                        <a title="Planuoti pardavimą" class="btn btn-sm btn-success" href="{{ route('sales.create', ['client_id' => $client->id]) }}"><i class="fas fa-plus"></i></a>
-                    </div> 
-                </div>
-
-                <div class="card-body" style="overflow-y: scroll;">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <table class="table" style="table-layout: fixed;">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>Pavadinimas</th>
-                                <th>Kaina (€)</th>
-                                <th>Sukūrimo data</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($sales as $sale)
-
-                            <tr>
-                                <td style="white-space: nowrap;overflow: hidden; text-overflow: ellipsis;" > <a href="{{ route('sales.show', $sale->id) }}"> {{ $sale->name }} </a> </td>
-                                <td>
-                                    {{ $sale->price }}
-                                </td>
-                                <td>
-                                    <span class="status">{{ gmdate('Y-m-d H:i', strtotime($sale->created_at))  }}</span>
-                                </td>
-                            </tr>
-                                
-                            @endforeach
-                        </tbody>
-                    </table>
-
-                </div>
-            </div>
-        </div>
+        
     </div>
 </div>
 

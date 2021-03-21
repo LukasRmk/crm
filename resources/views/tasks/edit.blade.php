@@ -11,7 +11,11 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger" onclick="return confirm('Ar tikrai norite ištrinti užduotį?')" ><i class="far fa-trash-alt"></i></button>
-                        <a class="btn btn-primary" href="{{ route('clients.show', $task->client_id) }}" > <i class="fas fa-arrow-left"></i> </a> 
+                        @if (isset($_GET['sale']))
+                            <a class="btn btn-primary" href="{{ route('sales.show', $task->sale_id) }}" > <i class="fas fa-arrow-left"></i> </a> 
+                        @else
+                            <a class="btn btn-primary" href="{{ route('clients.show', $task->client_id) }}" > <i class="fas fa-arrow-left"></i> </a> 
+                        @endif
                     </form>
                 </div> </div>
 

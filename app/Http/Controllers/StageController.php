@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Stage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class StageController extends Controller
 {
@@ -83,6 +84,14 @@ class StageController extends Controller
 
         return redirect()->route('windows.index')
                         ->with('success','Stadija sėkmingai atnaujinta!');
+    }
+
+    public function updateStageOrder($order){
+        $order = explode('!', $order);
+
+        Stage::updateOrder($order);
+
+        return response()->json(['success'=>'Stadijų eiliškumas atnaujintas']);
     }
 
     /**

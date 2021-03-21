@@ -16,4 +16,30 @@ class Stage extends Model
         'name'
     ];
 
+    public static function updateOrder($orders){
+        foreach($orders as $order => $id){
+            Stage::where("id", $id)
+                ->update(["order_by" => $order]);
+        }
+    }
+
+    public static function getOrdered(){
+        
+        $stages = Stage::select("sale_stages.*")
+                    ->orderBy("order_by", "ASC")
+                    ->get();
+    
+        return $stages;          
+    }
+
+    public static function findByWindow($window){
+        $stages = Stage::select("sale_stages.*")
+                ->where('window_id', $window)
+                ->orderBy("order_by", "ASC")
+                ->get();
+
+        return $stages; 
+    }
+
+
 }

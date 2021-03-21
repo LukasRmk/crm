@@ -32,6 +32,11 @@
                         <div class="row">
                             <input type="hidden" name="client_id" value="{{ $_GET['client'] }}" class="form-control"  /><br>
                             <input type="hidden" name="added_by" value="{{ Auth::user()->id }}" class="form-control"  /><br>
+                            
+                            @if (isset($_GET['sale']))
+                                <input type="hidden" name="sale_id" value="{{ $_GET['sale'] }}" class="form-control"  /><br>
+                            @endif
+
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <strong> Užduoties tipas: </strong><br>
                                 <select id="types" class="form_control" name="type_id">

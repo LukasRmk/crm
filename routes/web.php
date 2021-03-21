@@ -31,3 +31,5 @@ Route::resource('contacts', ContactController::class)->middleware("auth");
 Route::resource('windows', WindowController::class)->middleware("auth");
 Route::resource('stages', StageController::class)->middleware("auth");
 Route::resource('sales', SalesController::class)->middleware("auth");
+Route::get('stages/updateStageOrder/{order}', [StageController::class, 'updateStageOrder'])->name('updateStageOrder')->middleware("auth");
+Route::get('sales/getSalesWindow/{window}/{seller}', [SalesController::class, 'getSalesWindow'])->name('getSalesWindow')->middleware("auth");

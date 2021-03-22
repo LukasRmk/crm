@@ -7,6 +7,7 @@ use App\Models\TaskComment;
 use App\Models\TaskType;
 use App\Models\User;
 use App\Models\Client;
+use App\Models\Sale;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -51,7 +52,12 @@ class TaskController extends Controller
         $client = Client::find($request->input("client_id"));
         User::giveXp($request->input('added_by'), 3);
 
-        return redirect()->route('clients.show', compact("client"))->with('task_success', 'Užduotis suplanuota!');
+        if($request->input("sale_id") !== null){
+            $sale = Sale::find($request->input("sale_id"));
+            return redirect()->route('sales.show', compact("sale"))->with('task_success', 'Užduotis suplanuota!');
+        } else {
+            return redirect()->route('clients.show', compact("client"))->with('task_success', 'Užduotis suplanuota!');
+        }
     }
 
     /**

@@ -152,6 +152,9 @@ class SalesController extends Controller
      */
     public function destroy(Sale $sale)
     {
-        //
+        $sale->delete();
+
+        return redirect()->route('clients.show', $sale->client_id)
+                        ->with('sale_success','Pardavimas ištrintas!');
     }
 }

@@ -44,6 +44,15 @@
                                 <input type="text" name="price" value="{{ $sale->price }}" class="form-control"  /><br>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
+                                <strong> Statusas: </strong>
+                                <select name='status' class="form-control">
+                                    <option value="0" {{ ($sale->status == 0) ? "selected" : ""}}>Nebaigtas</option>
+                                    <option value="1" {{ ($sale->status == 1) ? "selected" : ""}}>Laimėtas</option>
+                                    <option value="2" {{ ($sale->status == 2) ? "selected" : ""}}>Pralaimėtas</option>
+                                </select>
+                                <br>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
                                 <strong> Langas: </strong>
                                 {{ $sale->window_name }}
                                 <br>

@@ -18,7 +18,9 @@ class Sale extends Model
         'price',
         'added_by',
         'info',
-        'name'
+        'name',
+        'order_by',
+        'status'
     ];
 
     public static function findByClient($client_id){
@@ -57,8 +59,30 @@ class Sale extends Model
                 ->leftJoin("clients", "clients.id", "=", "sale.client_id")
                 ->where("sale.stage", $stage)
                 ->where("sale.added_by", $seller)
+                ->where("sale.status", 0)
+                ->orderBy("order_by", "ASC")
                 ->get();
 
         return $sales;
     }
+
+    public static function findByStageAll($stage){
+        $sales = Sale::select("sale.*", "users.name as user_name", "clients.name as client_name")
+                ->leftJoin("users", "users.id", "=", "sale.added_by")
+                ->leftJoin("clients", "clients.id", "=", "sale.client_id")
+                ->where("sale.stage", $stage)
+                ->where("sale.status", 0)
+                ->orderBy("order_by", "ASC")
+                ->get();
+
+        return $sales;
+    }
+
+    public static function updateSalesOrder($orders){
+        foreach($orders as $order => $id){
+            Sale::where("id", $id)
+                ->update(["order_by" => $order]);
+        }
+    }
+
 }

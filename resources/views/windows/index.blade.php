@@ -71,6 +71,8 @@ $('[id*="_sales_windows"] tbody ').sortable({
     axis: "y",
     items: "tr:not('[id*=" + "window_" + "]')",
     cursor: "move",
+    helper: "clone",
+    placeholder: 'marker',
     update: function(event, ui){
         let window = $(this).parent().data('window');
         let stage = $(this).attr('id');
@@ -82,8 +84,6 @@ $('[id*="_sales_windows"] tbody ').sortable({
         });
 
         var order = order.join("!");
-
-        console.log(order);
 
         $.ajax({
             type: "GET",

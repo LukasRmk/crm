@@ -32,7 +32,7 @@
             <!-- Kliento info -->
             <div class="row row-cols-1">
                 <div class="col col-lg ">
-                    <div class="card" style="height: 39vh;" >
+                    <div class="card" style="height: 40vh;" >
                         <div class="card-header">
                             <div style="float: left">
                                 <strong style="font-size: 16pt" >{{ $sale->name }}</strong> 
@@ -75,6 +75,10 @@
                                             <th>Stadija</th>
                                             <td><strong>{{ $sale->stage_name }}</strong></td>
                                         </tr>
+                                        <tr>
+                                            <th>Statusas</th>
+                                            <td><strong>{{ ($sale->status == 0) ? "Nebaigtas" : (($sale->status == 1) ? "Laimėtas" : (($sale->status == 2) ? "Pralaimėtas" : "")) }}</strong></td>
+                                        </tr>
                                     </thead>
                                 </table>
                             </div>
@@ -88,7 +92,7 @@
             <div class="row row-cols-1">
                     
                 <div class="col col-lg">
-                    <div class="card" style="height: 43vh;">
+                    <div class="card" style="height: 42vh;">
                         <div class="card-header">
                             <div style="float: left">
                                 <strong style="font-size: 16pt" >Kontaktai</strong> 

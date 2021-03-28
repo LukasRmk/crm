@@ -32,7 +32,7 @@ class SalesController extends Controller
 
         $stages = Stage::findByWindow($window);
 
-        $table = "<table class='table table' id='main_sales_window'><thead><tr>";
+        $table = "<table class='sales_window' id='main_sales_window'><thead><tr>";
 
         foreach($stages as $ind => $stage){
             $table .= "<th><b>" . $stage->name . "</b></th>";
@@ -42,16 +42,19 @@ class SalesController extends Controller
         $width = (100 / count($stages)) . "%";
 
         foreach($stages as $ind => $stage){
-            $sales = Sale::findByStage($stage->id, $seller);
-            Log::info($sales);
-
-            $table .= "<td id='head' style='width: ".$width."; max-width: ".$width."; '> <center> <table style='width: 100%;' class='sortable' id='sortable_$ind' stage_id='".$stage->id."'><tbody>"; 
-
-            foreach($sales as $sind => $sale){
-                $table .= "<tr value='$sale->id' id='$sale->id' ><td class='sale' id='sale_$sale->id' value='$sale->id' style='background-color: #D0E6F9;display:block;'><b style='font-size: 13px'><a href='".route('sales.show', $sale->id)."'>" . $sale->name . "</a></b><br>" . $sale->price . " €<br><a href='".route('clients.show', $sale->client_id)."'>" . $sale->client_name . "</a><br><i>" . $sale->user_name . "</i></td></tr>";
+            if($seller != 0){
+                $sales = Sale::findByStage($stage->id, $seller);
+            } else {
+                $sales = Sale::findByStageAll($stage->id);
             }
 
-            $table .= "<tfoot> <tr id='foot' style='border: 1px solid black'> <td id='foot' style='visibility: hidden;border: 1px solid black; height:50px;'></td></tr></tfoot></tbody></table></center></td>";
+            $table .= "<td id='head' style='width: ".$width."; max-width: ".$width."; '> <center> <table style='width: 100%;' class='table_to_sort' id='table_to_sort_$ind' stage_id='".$stage->id."'><tbody>"; 
+
+            foreach($sales as $sind => $sale){
+                $table .= "<tr value='$sale->id' id='$sale->id' ><td class='sale' id='sale_$sale->id' value='$sale->id' style='display:block;'><b style='font-size: 16px'><a href='".route('sales.show', $sale->id)."'>" . $sale->name . "</a></b><br>" . $sale->price . " €<br><a href='".route('clients.show', $sale->client_id)."'>" . $sale->client_name . "</a><br><i>" . $sale->user_name . "</i></td></tr>";
+            }
+
+            $table .= "<tfoot> <tr id='foot' style='border: 1px solid black'> <td id='foot' style='visibility: hidden; height:50px;'></td></tr></tfoot></tbody></table></center></td>";
 
 
         }
@@ -59,6 +62,24 @@ class SalesController extends Controller
         $table .= "</tbody> </table>";
 
         return response()->json(['window'=>$table]);
+    }
+
+    public function setNewStage($sale, $stage){
+        Sale::where("id", $sale)->update(["stage" => $stage]);
+        return response("Done");
+    }
+
+    public function setNewOrder($order){
+        $order = explode('!', $order);
+        Sale::updateSalesOrder($order);
+        
+        return response('Done');
+    }
+
+    public function setStatus($status, $sale){
+        Sale::where("id", $sale)->update(["status" => $status]);
+        
+        return response("done " . $status);
     }
 
     /**

@@ -20,7 +20,8 @@ class Sale extends Model
         'info',
         'name',
         'order_by',
-        'status'
+        'status',
+        'status_change_date'
     ];
 
     public static function findByClient($client_id){
@@ -84,5 +85,25 @@ class Sale extends Model
                 ->update(["order_by" => $order]);
         }
     }
+
+    public static function findWonWithinPeriod($dateFrom, $dateTo, $user){
+        $count = Sale::selectRaw("count(sale.id) as count")
+                    ->where("added_by", $user)
+                    ->where("status", 1)
+                    ->whereRaw("status_change_date BETWEEN '" . $dateFrom . " 00:00:01' AND '" . $dateTo . " 23:59:59'")
+                    ->get();
+        
+        return $count;
+    }
+
+    public static function findWithinPeriod($dateFrom, $dateTo, $user){
+        $count = Sale::selectRaw("count(sale.id) as count")
+                    ->where("added_by", $user)
+                    ->whereRaw("created_at BETWEEN '" . $dateFrom . " 00:00:01' AND '" . $dateTo . " 23:59:59'")
+                    ->get();
+        
+        return $count;
+    }
+
 
 }

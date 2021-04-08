@@ -19,4 +19,13 @@ class Client extends Model
         'web'
     ];
 
+    public static function findWithinPeriod($dateFrom, $dateTo, $user){
+        $count = Client::selectRaw("count(clients.id) as count")
+                    ->where("added_by", $user)
+                    ->whereRaw("created_at BETWEEN '" . $dateFrom . " 00:00:01' AND '" . $dateTo . " 23:59:59'")
+                    ->get();
+        
+        return $count;
+    }
+
 }

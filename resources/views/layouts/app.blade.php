@@ -6,7 +6,47 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <style>
+        .dropbtn {
+            background-color: transparent;
+            color: #5e72e4;
+            padding: 3px;
+            font-size: 16px;
+            border: none;
+        }
+        
+        .dropdownas {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dropdownas-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 20px;
 
+        }
+        
+        .dropdownas-content a {
+            color: #5e72e4;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-radius: 20px;
+
+        }
+        
+        .dropdownas-content a:hover {color: #4a5ecf;}
+        
+        .dropdownas:hover .dropdownas-content {display: block;}
+        
+        .dropdownas:hover .dropbtn {background-color: transparent;}
+
+    </style>
     <title>{{ __('Klientų valdymo sistema') }}</title>
 
     <!-- Scripts -->
@@ -14,6 +54,7 @@
     <script src="{{ asset('js/jquery-ui-1.12.1/jquery-ui.js') }}"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+    <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -47,10 +88,28 @@
                             <a class="navbar-item" href="{{ route('clients.index') }}">
                                 <i class="far fa-address-book"></i> {{ __('Klientų sąrašas') }}
                             </a>
+
                             &nbsp;&nbsp;
+
                             <a class="navbar-item" href="{{ route('sales.index') }}">
                                 <i class="fas fa-euro-sign"></i> {{ __('Pardavimai') }}
                             </a>
+
+                            &nbsp;&nbsp;
+
+                            <div class="dropdownas">
+                                <a class="navbar-item" href="#" >
+                                    <i class="fas fa-trophy"></i> {{ __('Motyvacija') }}
+                                </a>
+                                <div class="dropdownas-content">
+                                    <a class="dropdown-item" href="{{ route('motivation.index') }}" >
+                                        <i class="fas fa-award"></i> {{ __('Vartotojų rezultatai') }}
+                                    </a>
+                                </div>
+                            </div>
+
+                            &nbsp; &nbsp;
+
                         @endguest
 
                     </ul>
@@ -68,27 +127,28 @@
                                 </li>
                             @endif
                         @else
-                        
-                            <li class="nav-item dropdown">
-                                <img src="{{ URL::asset('avatars/'.Auth::user()->avatar) }}" alt="Avatar" style="width: 40px; height:40px; float:left; border-radius:50%; {{ App\Models\User::getLevel(Auth::user()->user_xp)->border }} " >
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                     &nbsp; {{ Auth::user()->name }}
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('user.show', Auth::user()->id) }}" >
-                                        <i class="fas fa-user"></i> {{ __('Mano profilis') }}
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                       <i class="fas fa-sign-out-alt"></i> {{ __('Atsijungti') }}
-                                    </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
+                        <img src="{{ URL::asset('avatars/'.Auth::user()->avatar) }}" alt="Avatar" style="width: 40px; height:40px; float:left; border-radius:50%; {{ App\Models\User::getLevel(Auth::user()->user_xp)->border }} " >&nbsp; &nbsp; 
+                        <div class="dropdownas">
+                            <a class="dropbtn" href="#" >
+                                {{ Auth::user()->name }} <i class="fas fa-chevron-circle-down"></i>
+                            </a>
+                            <div class="dropdownas-content">
+                                <a class="dropdown-item" href="{{ route('user.show', Auth::user()->id) }}" >
+                                    <i class="fas fa-user"></i> {{ __('Mano profilis') }}
+                                </a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                <i class="fas fa-sign-out-alt"></i> {{ __('Atsijungti') }}
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                        </div>&nbsp; &nbsp; 
+                            
                         @endguest
                     </ul>
                 </div>

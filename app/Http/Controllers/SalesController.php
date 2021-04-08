@@ -77,7 +77,7 @@ class SalesController extends Controller
     }
 
     public function setStatus($status, $sale){
-        Sale::where("id", $sale)->update(["status" => $status]);
+        Sale::where("id", $sale)->update(["status" => $status, "status_change_date" => date('Y-m-d h:m:s')]);
         
         return response("done " . $status);
     }

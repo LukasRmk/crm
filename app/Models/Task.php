@@ -78,4 +78,23 @@ class Task extends Model
         ->update(["success_xp" => 1]);
     }
 
+    public static function findWonWithinPeriod($dateFrom, $dateTo, $user){
+        $count = Task::selectRaw("count(tasks.id) as count")
+                    ->where("added_by", $user)
+                    ->where("task_succesful", 1)
+                    ->whereRaw("task_datetime BETWEEN '" . $dateFrom . " 00:00:01' AND '" . $dateTo . " 23:59:59'")
+                    ->get();
+        
+        return $count;
+    }
+
+    public static function findWithinPeriod($dateFrom, $dateTo, $user){
+        $count = Task::selectRaw("count(tasks.id) as count")
+                    ->where("added_by", $user)
+                    ->whereRaw("task_datetime BETWEEN '" . $dateFrom . " 00:00:01' AND '" . $dateTo . " 23:59:59'")
+                    ->get();
+        
+        return $count;
+    }
+
 }

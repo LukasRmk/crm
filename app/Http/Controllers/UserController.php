@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Achievement;
 use Illuminate\Http\Request;
 use Image;
 
@@ -49,7 +50,8 @@ class UserController extends Controller
     {
         $userLevel = User::getLevel(json_decode($user, true)["user_xp"]);
         $nextLevel = User::getNextLevel(json_decode($user, true)["user_xp"]);
-        return view('user.show', compact('user', 'userLevel', 'nextLevel'));
+        $achievements = Achievement::getAchievementsWithProgress(json_decode($user, true)["id"]);
+        return view('user.show', compact('user', 'userLevel', 'nextLevel', 'achievements'));
     }
 
     /**

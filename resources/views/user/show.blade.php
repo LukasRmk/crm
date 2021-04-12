@@ -79,6 +79,54 @@
                             </div>
 
                         </div>
+                        <br>
+                        <div>
+
+                            
+
+                            <div>
+                                <br><br>
+                                @foreach ($achievements as $achievement)
+                                    <div class="card-body shadow" style="border-radius: 25px;" >
+                                        <div style="float: left" ><b>{{ $achievement->name }}</b> </div> 
+
+                                        <div style="float: right; font-size: 20pt"> 
+                                            @switch($achievement->achievement_type)
+                                                @case(1) 
+                                                    <i class="far fa-id-badge" style="color: #5e72e4"></i>
+                                                    @break
+                                                @case(2)
+                                                @case(3)
+                                                    <i class="fas fa-euro-sign" style="color: green" ></i>
+                                                    @break
+                                                @case(4)
+                                                @case(5)
+                                                    <i class="fas fa-phone-volume" style="color: #11cdef" ></i>
+                                                    @break
+                                                @case(6)
+                                                @case(7)
+                                                    <i class="fas fa-handshake" style="color: #115fef" ></i>
+                                                    @break
+                                            
+                                                @default
+                                                    
+                                            @endswitch
+                                        </div><br>
+        
+                                        <pre style="font-family: Open Sans, sans-serif">{{ $achievement->info }}</pre>
+                                        <div class="progress-percentage">
+                                            <span>{{ ($achievement->progress > $achievement->count) ? $achievement->count : $achievement->progress }} / {{ $achievement->count }}</span>
+                                          </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-{{ ($achievement->progress >= $achievement->count ? 'green' : 'primary') }}" role="progressbar" style="width: {{ ($achievement->progress * 100) / $achievement->count }}%;"></div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                @endforeach
+                            </div>
+
+                        </div>
+
                     </center>
                 </div>
             </div>

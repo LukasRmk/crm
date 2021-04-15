@@ -90,7 +90,7 @@ class Sale extends Model
         $count = Sale::selectRaw("count(sale.id) as count")
                     ->where("added_by", $user)
                     ->where("status", 1)
-                    ->whereRaw("status_change_date BETWEEN '" . $dateFrom . " 00:00:01' AND '" . $dateTo . " 23:59:59'")
+                    ->whereRaw("created_at BETWEEN '" . $dateFrom . " 00:00:01' AND '" . $dateTo . " 23:59:59'")
                     ->get();
         
         return $count;
@@ -98,12 +98,35 @@ class Sale extends Model
 
     public static function findWithinPeriod($dateFrom, $dateTo, $user){
         $count = Sale::selectRaw("count(sale.id) as count")
-                    ->where("added_by", $user)
-                    ->whereRaw("created_at BETWEEN '" . $dateFrom . " 00:00:01' AND '" . $dateTo . " 23:59:59'")
+                    ->whereRaw("created_at BETWEEN '" . $dateFrom . " 00:00:01' AND '" . $dateTo . " 23:59:59' AND added_by = '". $user ."'")
                     ->get();
         
         return $count;
     }
 
+    public static function findYearlySales($user){
+        $end = strtotime(date('Y-m-31'));
+        $month = strtotime("-1 year", time());
+        $index = 0; 
+
+        while($month < $end){
+            $from = date('Y-m-01', $month);
+            $to = date('Y-m-t', $month);
+
+            $sales[$index]['price'] = Sale::selectRaw(" IFNULL(SUM(price), 0) as profit")
+                        ->whereRaw("status_change_date BETWEEN '" . $from . " 00:00:01' AND '" . $to . " 23:59:59' AND added_by = '". $user ."' AND status = '1'")
+                        ->first()
+                        ->profit;
+
+            $sales[$index]['year'] = date('Y', $month);
+            $sales[$index]['month'] = date('m', $month);
+
+            $index++;
+            $month = strtotime("+1 month", $month);
+        }       
+
+        return $sales;
+
+    }
 
 }

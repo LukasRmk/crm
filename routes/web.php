@@ -10,6 +10,7 @@ use App\Http\Controllers\WindowController;
 use App\Http\Controllers\StageController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\MotivationController;
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,8 +22,8 @@ use App\Http\Controllers\MotivationController;
 |
 */
 
-Route::resource("/", ClientController::class)->middleware("auth");
-Route::resource("home", ClientController::class)->middleware("auth");
+Route::resource("/", DashboardController::class)->middleware("auth");
+Route::resource("dashboard", DashboardController::class)->middleware("auth");
 Route::resource("clients", ClientController::class)->middleware("auth");
 Route::put('/tasks/storeComment', [TaskController::class, 'storeComment'])->name('storeComment')->middleware("auth");
 Route::delete('/tasks/destroyComment/{comment}', [TaskController::class, 'destroyComment'])->name('destroyComment')->middleware("auth");

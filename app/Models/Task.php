@@ -78,23 +78,61 @@ class Task extends Model
         ->update(["success_xp" => 1]);
     }
 
-    public static function findWonWithinPeriod($dateFrom, $dateTo, $user){
-        $count = Task::selectRaw("count(tasks.id) as count")
-                    ->where("added_by", $user)
-                    ->where("task_succesful", 1)
-                    ->whereRaw("task_datetime BETWEEN '" . $dateFrom . " 00:00:01' AND '" . $dateTo . " 23:59:59'")
-                    ->get();
+    public static function findWonWithinPeriod($dateFrom, $dateTo, $user, $type = false){
+
+        if(!$type){
+            $count = Task::selectRaw("count(tasks.id) as count")
+                        ->where("added_by", $user)
+                        ->where("task_succesful", 1)
+                        ->whereRaw("task_datetime BETWEEN '" . $dateFrom . " 00:00:01' AND '" . $dateTo . " 23:59:59'")
+                        ->get();
+        } else {
+            $count = Task::selectRaw("count(tasks.id) as count")
+                        ->where("added_by", $user)
+                        ->where("task_succesful", 1)
+                        ->where("type_id", $type)
+                        ->whereRaw("task_datetime BETWEEN '" . $dateFrom . " 00:00:01' AND '" . $dateTo . " 23:59:59'")
+                        ->get();
+        }
+
+        
         
         return $count;
     }
 
-    public static function findWithinPeriod($dateFrom, $dateTo, $user){
-        $count = Task::selectRaw("count(tasks.id) as count")
+    public static function findWithinPeriod($dateFrom, $dateTo, $user, $type = false){
+        if(!$type){
+            $count = Task::selectRaw("count(tasks.id) as count")
                     ->where("added_by", $user)
                     ->whereRaw("task_datetime BETWEEN '" . $dateFrom . " 00:00:01' AND '" . $dateTo . " 23:59:59'")
                     ->get();
+        } else {
+            $count = Task::selectRaw("count(tasks.id) as count")
+                    ->where("added_by", $user)
+                    ->where("type_id", $type)
+                    ->whereRaw("task_datetime BETWEEN '" . $dateFrom . " 00:00:01' AND '" . $dateTo . " 23:59:59'")
+                    ->get();
+        }
         
         return $count;
+    }
+
+    public static function getDashboardTasks($user){
+
+        $dateFrom = date('Y-m') . '-01';
+        $dateTo = date('Y-m-t');
+
+        $tasks = Task::selectRaw("tasks.*, tasks.id as task_id, clients.name as client_name, task_types.type_name")
+        ->where("tasks.added_by", $user)
+        ->where("task_completed", '0')
+        ->whereRaw("task_datetime BETWEEN '" . $dateFrom . " 00:00:01' AND '" . $dateTo . " 23:59:59'")
+        ->leftJoin("task_types", "task_types.id", "=", "tasks.type_id")
+        ->leftJoin("clients", "clients.id", "=", "tasks.client_id")
+        ->orderBy("task_datetime", "DESC")
+        ->get();
+
+        return $tasks;
+
     }
 
 }

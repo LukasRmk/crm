@@ -7,6 +7,15 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
         .dropbtn {
             background-color: transparent;
             color: #5e72e4;
@@ -54,6 +63,9 @@
     <script src="{{ asset('js/jquery-ui-1.12.1/jquery-ui.js') }}"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+    <script src="{{ asset('js/jquery.circle-progress.min.js') }}"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    
     <!-- <script src="{{ asset('js/app.js') }}" defer></script> -->
 
     <!-- Fonts -->
@@ -65,12 +77,13 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 </head>
-<body>
-    <div id="app">
+<body >
+    <div id="app" style="background: linear-gradient(to bottom, #ffffff 0%, #4a5ecf 100%); min-height:100%;">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url('/home') }}">
+                <a class="navbar-brand" href="{{ url('/dashboard') }}">
                     {{ __('Klientų valdymo sistema') }}
                 </a>
                 
@@ -84,6 +97,12 @@
                         @guest
 
                         @else
+
+                            <a class="navbar-item" href="{{ route('dashboard.index') }}">
+                                <i class="fas fa-clipboard-list"></i> {{ __('Darbastalis') }}
+                            </a>
+
+                            &nbsp;&nbsp;
 
                             <a class="navbar-item" href="{{ route('clients.index') }}">
                                 <i class="far fa-address-book"></i> {{ __('Klientų sąrašas') }}
@@ -127,8 +146,7 @@
                                 </li>
                             @endif
                         @else
-
-                        <img src="{{ URL::asset('avatars/'.Auth::user()->avatar) }}" alt="Avatar" style="width: 40px; height:40px; float:left; border-radius:50%; {{ App\Models\User::getLevel(Auth::user()->user_xp)->border }} " >&nbsp; &nbsp; 
+                        <img src="{{ URL::asset('avatars/'.Auth::user()->avatar) }}" alt="Avatar" style="width: 40px; height:40px; border-radius:50%; {{ App\Models\User::getLevel(Auth::user()->user_xp)->border }} " >&nbsp; &nbsp; 
                         <div class="dropdownas">
                             <a class="dropbtn" href="#" >
                                 {{ Auth::user()->name }} <i class="fas fa-chevron-circle-down"></i>

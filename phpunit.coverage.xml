@@ -1,0 +1,20 @@
+<phpunit colors="true">
+    <testsuites>
+        <testsuite name="Task test suites">
+            <directory>./tests/Feauture/</directory>
+        </testsuite>
+    </testsuites>
+    <logging>
+        <log type="coverage-html"
+             target="./log/codeCoverage"
+             lowUpperBound="40"
+             highLowerBound="75"
+             showUncoveredFiles="false"/>
+    </logging>
+    <filter>
+<!--        files with at least one line executed appears in report-->
+        <whitelist addUncoveredFilesFromWhitelist="false">
+            <directory suffix=".php">./TaskTest</directory>
+        </whitelist>
+    </filter>
+</phpunit>

@@ -63,6 +63,8 @@ class Task extends Model
     public static function setCompleteXpGiven($task_id){
         Task::where("id", $task_id)
         ->update(["complete_xp" => 1]);
+
+        return true;
     }
 
     public static function successXpGiven($task_id){
@@ -76,6 +78,8 @@ class Task extends Model
     public static function setSuccessXpGiven($task_id){
         Task::where("id", $task_id)
         ->update(["success_xp" => 1]);
+
+        return true;
     }
 
     public static function findWonWithinPeriod($dateFrom, $dateTo, $user, $type = false){

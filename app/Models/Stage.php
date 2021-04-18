@@ -21,6 +21,7 @@ class Stage extends Model
             Stage::where("id", $id)
                 ->update(["order_by" => $order]);
         }
+        return true;
     }
 
     public static function getOrdered(){

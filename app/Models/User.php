@@ -50,6 +50,7 @@ class User extends Authenticatable
 
         User::where('id', $id)
         ->update(['user_xp' => ($current_xp[0]['user_xp'] + $xp)]);
+        return ($current_xp[0]['user_xp'] + $xp);
     }
 
     public static function getLevel($xp){

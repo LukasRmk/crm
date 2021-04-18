@@ -1,24 +1,26 @@
 <?php
 
-namespace App\Models;
+namespace Tests\Feature;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Tests\TestCase;
 use Illuminate\Support\Facades\DB;
+use App\Models\Achievement;
 
-class Achievement extends Model
+class AchievementTest extends TestCase
 {
-    use HasFactory;
+    
+    public function test_getAchievementsWithProgress(){
+        $user = 1;
+        $achievements = Achievement::getAchievementsWithProgress($user);
+        $achievementsDummy = Achievement::all();
 
-    public static function getAchievementsWithProgress($user){
-
-        $achievements = Achievement::all();
-
-        foreach($achievements as $key => $achievement){
+        foreach($achievementsDummy as $key => $achievement){
             switch($achievement->achievement_type){
                 case 1: // Added clients
 
-                    $achievements[$key]->progress = DB::table("clients")
+                    $achievementsDummy[$key]->progress = DB::table("clients")
                     ->selectRaw("COUNT(id) as progress")
                     ->where("added_by", "=", $user)
                     ->first()
@@ -28,7 +30,7 @@ class Achievement extends Model
                 
                 case 2: // Added sales
 
-                    $achievements[$key]->progress = DB::table("sale")
+                    $achievementsDummy[$key]->progress = DB::table("sale")
                     ->selectRaw("COUNT(id) as progress")
                     ->where("added_by", "=", $user)
                     ->first()
@@ -38,7 +40,7 @@ class Achievement extends Model
 
                 case 3: // Succesful sales
 
-                    $achievements[$key]->progress = DB::table("sale")
+                    $achievementsDummy[$key]->progress = DB::table("sale")
                     ->selectRaw("COUNT(id) as progress")
                     ->where("added_by", "=", $user)
                     ->where("status", "=", "1")
@@ -49,7 +51,7 @@ class Achievement extends Model
 
                 case 4: // Calls created
 
-                    $achievements[$key]->progress = DB::table("tasks")
+                    $achievementsDummy[$key]->progress = DB::table("tasks")
                     ->selectRaw("COUNT(id) as progress")
                     ->where("added_by", "=", $user)
                     ->where("type_id", "=", $achievement->task_type)
@@ -60,7 +62,7 @@ class Achievement extends Model
 
                 case 5: // Calls successful
 
-                    $achievements[$key]->progress = DB::table("tasks")
+                    $achievementsDummy[$key]->progress = DB::table("tasks")
                     ->selectRaw("COUNT(id) as progress")
                     ->where("added_by", "=", $user)
                     ->where("task_succesful", "=", "1")
@@ -72,7 +74,7 @@ class Achievement extends Model
 
                 case 6: // Meets created
 
-                    $achievements[$key]->progress = DB::table("tasks")
+                    $achievementsDummy[$key]->progress = DB::table("tasks")
                     ->selectRaw("COUNT(id) as progress")
                     ->where("added_by", "=", $user)
                     ->where("type_id", "=", $achievement->task_type)
@@ -83,7 +85,7 @@ class Achievement extends Model
 
                 case 7: // Meets successful
 
-                    $achievements[$key]->progress = DB::table("tasks")
+                    $achievementsDummy[$key]->progress = DB::table("tasks")
                     ->selectRaw("COUNT(id) as progress")
                     ->where("added_by", "=", $user)
                     ->where("task_succesful", "=", "1")
@@ -93,11 +95,12 @@ class Achievement extends Model
                     
                     break;
 
+                default:
             }
         }
 
-        return $achievements;
 
+        $this->assertEquals($achievementsDummy, $achievements);
     }
 
 }

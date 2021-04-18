@@ -84,6 +84,8 @@ class Sale extends Model
             Sale::where("id", $id)
                 ->update(["order_by" => $order]);
         }
+
+        return true;
     }
 
     public static function findWonWithinPeriod($dateFrom, $dateTo, $user){

@@ -70,7 +70,7 @@
                                     <span><b>Lygio progresas</b></span>
                                   </div>
                                   <div class="progress-percentage">
-                                    <span>{{ $user->user_xp }} / {{ $nextLevel }}</span>
+                                    <span>{{ ($user->user_xp < $nextLevel) ? $user->user_xp . "/" . $nextLevel : $user->user_xp}}</span>
                                   </div>
                                 </div>
                                 <div class="progress">

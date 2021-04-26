@@ -8,15 +8,6 @@ use Illuminate\Support\Facades\Log;
 
 class StageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -43,17 +34,6 @@ class StageController extends Controller
         Stage::create($request->all());
 
         return redirect()->route('windows.index')->with('success', 'Stadija pridėta!');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Stage  $stage
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Stage $stage)
-    {
-        //
     }
 
     /**

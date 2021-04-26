@@ -10,16 +10,6 @@ use Illuminate\Http\Request;
 class ContactController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -47,17 +37,6 @@ class ContactController extends Controller
         $client = Client::find($request->input("client_id"));
 
         return redirect()->route('clients.show', compact("client"))->with('contact_success', 'Kontaktas pridėtas!');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Contact  $contact
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Contact $contact)
-    {
-        //
     }
 
     /**

@@ -181,8 +181,9 @@
                 { y: {{ $yearlySales[12]['price'] }}, x: new Date({{ $yearlySales[12]['year']  }}, {{ $yearlySales[12]['month']  }}) },
             ]
         }]
-});
-chart.render();
+    });
+
+    chart.render();
 
 </script>
 

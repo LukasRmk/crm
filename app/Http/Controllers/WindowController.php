@@ -48,17 +48,6 @@ class WindowController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Window  $window
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Window $window)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Window  $window
@@ -86,16 +75,5 @@ class WindowController extends Controller
 
         return redirect()->route('windows.index')
                         ->with('success','Langas sėkmingai atnaujintas!');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Window  $window
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Window $window)
-    {
-        //
     }
 }

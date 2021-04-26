@@ -68,8 +68,17 @@ class User extends Authenticatable
                 ->where("xp_needed", ">", $xp)
                 ->orderBy("xp_needed", "asc")
                 ->limit("1")
-                ->get();
+                ->first();
 
-        return $level[0]->xp_needed;
+                
+        if(!isset($level)){
+            $level = DB::table("xp_levels")
+                ->where("xp_needed", "<=", $xp)
+                ->orderBy("xp_needed", "desc")
+                ->limit("1")
+                ->first();
+        }
+        
+        return $level->xp_needed;
     }
 }

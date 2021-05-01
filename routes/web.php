@@ -11,6 +11,7 @@ use App\Http\Controllers\StageController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\MotivationController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OrganizationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,12 +24,18 @@ use App\Http\Controllers\DashboardController;
 */
 
 Route::resource("/", DashboardController::class)->middleware("auth");
+Route::resource("/home", DashboardController::class)->middleware("auth");
 Route::resource("dashboard", DashboardController::class)->middleware("auth");
 Route::resource("clients", ClientController::class)->middleware("auth");
 Route::put('/tasks/storeComment', [TaskController::class, 'storeComment'])->name('storeComment')->middleware("auth");
 Route::delete('/tasks/destroyComment/{comment}', [TaskController::class, 'destroyComment'])->name('destroyComment')->middleware("auth");
 Route::resource('tasks', TaskController::class)->middleware("auth");
 Route::resource('user', UserController::class)->middleware("auth");
+Route::resource('users', UserController::class)->middleware("auth");
+Route::get('/adminEdit/{user}', [ 'as' => 'users.adminEdit', 'uses' => 'App\Http\Controllers\UserController@adminEdit']);
+//Route::put('/users/adminUpdate', [ 'as' => 'users.adminUpdate', 'uses' => 'App\Http\Controllers\UserController@adminUpdate']);
+//Route::put('/users/adminUpdate', [UserController::class, 'adminUpdate'])->name('adminUpdate')->middleware("auth");
+Route::resource('organizations', OrganizationController::class)->middleware("auth");
 Route::resource('contacts', ContactController::class)->middleware("auth");
 Route::resource('windows', WindowController::class)->middleware("auth");
 Route::resource('stages', StageController::class)->middleware("auth");

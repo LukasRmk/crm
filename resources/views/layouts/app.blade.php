@@ -116,16 +116,9 @@ body {
 
                             &nbsp;&nbsp;
 
-                            <div class="dropdownas">
-                                <a class="navbar-item" href="#" >
-                                    <i class="fas fa-trophy"></i> {{ __('Motyvacija') }}
-                                </a>
-                                <div class="dropdownas-content">
-                                    <a class="dropdown-item" href="{{ route('motivation.index') }}" >
-                                        <i class="fas fa-award"></i> {{ __('Vartotojų rezultatai') }}
-                                    </a>
-                                </div>
-                            </div>
+                            <a class="navbar-item" href="{{ route('motivation.index') }}" >
+                                <i class="fas fa-award"></i> {{ __('Vartotojų rezultatai') }}
+                            </a>
 
                             &nbsp; &nbsp;
 
@@ -146,6 +139,21 @@ body {
                                 </li>
                             @endif
                         @else
+                        @if (Auth::user()->is_admin)
+                            <div class="dropdownas">
+                                <a class="dropbtn" href="#" >
+                                    {{ __("Admin valdymas") }} <i class="fas fa-user-cog"></i>
+                                </a>
+                                <div class="dropdownas-content">
+                                    <a class="dropdown-item" href="{{ route('users.index') }}" >
+                                        <i class="fas fa-users"></i> {{ __('Vartotojai') }}
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('organizations.index') }}" >
+                                        <i class="fas fa-sitemap"></i> {{ __('Organizacijos') }}
+                                    </a>
+                                </div>
+                            </div>&nbsp; &nbsp; 
+                        @endif
                         <img src="{{ URL::asset('avatars/'.Auth::user()->avatar) }}" alt="Avatar" style="width: 40px; height:40px; border-radius:50%; {{ App\Models\User::getLevel(Auth::user()->user_xp)->border }} " >&nbsp; &nbsp; 
                         <div class="dropdownas">
                             <a class="dropbtn" href="#" >

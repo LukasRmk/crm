@@ -28,4 +28,14 @@ class Client extends Model
         return $count;
     }
 
+    public static function findByOrganization($organization_id){
+        $clients = Client::selectRaw('clients.*')
+            ->leftJoin("users", "users.id", "=", "clients.added_by")
+            ->where("users.organization_id", "=", $organization_id)
+            ->get();
+
+        return $clients;
+
+    }
+
 }

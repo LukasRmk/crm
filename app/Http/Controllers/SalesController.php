@@ -11,7 +11,7 @@ use App\Models\Task;
 use App\Models\Contact;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
-
+use Auth;
 class SalesController extends Controller
 {
     /**
@@ -24,7 +24,7 @@ class SalesController extends Controller
         $windows = Window::all();
         $stages = Stage::all();
         $sales = Sale::findJoinedAll();
-        $users = User::all();
+        $users = User::findByOrganization(Auth::user()->organization_id);
         return view('sales.index', compact('users', 'sales', 'windows', 'stages'));
     }
 

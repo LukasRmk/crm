@@ -8,7 +8,7 @@ use App\Models\Contact;
 use App\Models\User;
 use App\Models\Sale;
 use Illuminate\Http\Request;
-
+use Auth;
 class ClientController extends Controller
 {
     /**
@@ -18,7 +18,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::latest()->paginate(15);
+        $clients = Client::findByOrganization(Auth::user()->organization_id);
         return view('clients.index', compact('clients'))->with(request()->input('page'));
     }
 

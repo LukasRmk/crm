@@ -70,7 +70,7 @@
                                     <span><b>Lygio progresas</b></span>
                                   </div>
                                   <div class="progress-percentage">
-                                    <span>{{ $user->user_xp }} / {{ $nextLevel }}</span>
+                                    <span>{{ ($user->user_xp < $nextLevel) ? $user->user_xp . "/" . $nextLevel : $user->user_xp}}</span>
                                   </div>
                                 </div>
                                 <div class="progress">
@@ -80,12 +80,20 @@
 
                         </div>
                         <br>
+
                         <div>
+                            <div class="card-body shadow" style="border-radius: 25px;font-size: 14pt" >
+                                <div style="float: middle;" ><b> {{ __('Periodiniai laimėjimai') }}</b></div> 
+                                <i class='fas fa-medal' style='color: silver'></i>{{ count($second) }}&nbsp;&nbsp;
+                                <i class='fas fa-medal' style='color: gold'></i>{{ count($first) }}&nbsp;&nbsp;
+                                <i class='fas fa-medal' style='color: #CD7F32'></i>{{ count($third) }}
+                                </div>
+                            </div>
+                        </div>
 
-                            
-
+                        <div>
                             <div>
-                                <br><br>
+                                <br>
                                 @foreach ($achievements as $achievement)
                                     <div class="card-body shadow" style="border-radius: 25px;" >
                                         <div style="float: left" ><b>{{ $achievement->name }}</b> </div> 

@@ -21,7 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'avatar'
+        'avatar',
+        'organization_id'
     ];
 
     /**
@@ -65,12 +66,12 @@ class User extends Authenticatable
 
     public static function getNextLevel($xp){
         $level = DB::table("xp_levels")
-                ->where("xp_needed", ">", $xp)
-                ->orderBy("xp_needed", "asc")
-                ->limit("1")
-                ->first();
+        ->where("xp_needed", ">", $xp)
+        ->orderBy("xp_needed", "asc")
+        ->limit("1")
+        ->first();
 
-                
+        
         if(!isset($level)){
             $level = DB::table("xp_levels")
                 ->where("xp_needed", "<=", $xp)
@@ -78,7 +79,33 @@ class User extends Authenticatable
                 ->limit("1")
                 ->first();
         }
-        
+
         return $level->xp_needed;
     }
+
+    public static function findWithOrganization(){
+        $users = User::selectRaw('users.*, organizations.name as org_name')
+                    ->leftJoin("organizations", "organizations.id", "=", "users.organization_id")
+                    ->get();
+
+        return $users;
+    }
+
+    public static function findNonAdmins(){
+        $users = User::select('users.*')
+            ->leftJoin("organizations", "organizations.admin", "=", "users.id")
+            ->whereRaw('organizations.id IS NULL')
+            ->get();
+
+        return $users;
+    }
+
+    public static function findByOrganization($org){
+        $users = User::select('users.*')
+                ->where('organization_id', $org)
+                ->get();
+                
+        return $users;
+    }
+
 }

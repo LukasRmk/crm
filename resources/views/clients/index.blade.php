@@ -44,7 +44,6 @@
                         @endforeach
 
                     </table>
-                    {{ $clients->links() }}
                 </div>
             </div>
         </div>

@@ -139,7 +139,7 @@ body {
                                 </li>
                             @endif
                         @else
-                        @if (Auth::user()->is_admin)
+                        @if (Auth::user()->is_admin || isset(DB::table('organizations')->select('admin')->where('admin', Auth::user()->id)->first()->admin))
                             <div class="dropdownas">
                                 <a class="dropbtn" href="#" >
                                     {{ __("Admin valdymas") }} <i class="fas fa-user-cog"></i>

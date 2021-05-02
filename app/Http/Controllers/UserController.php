@@ -19,7 +19,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::findWithOrganization();
+        if(Auth::user()->is_admin){
+            $users = User::findWithOrganization();
+        } else {
+            $users = User::findWithOrganization(Auth::user()->organization_id);
+        }
         return view('users.index', compact('users'));
     }
 

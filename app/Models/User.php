@@ -83,10 +83,18 @@ class User extends Authenticatable
         return $level->xp_needed;
     }
 
-    public static function findWithOrganization(){
-        $users = User::selectRaw('users.*, organizations.name as org_name')
-                    ->leftJoin("organizations", "organizations.id", "=", "users.organization_id")
-                    ->get();
+    public static function findWithOrganization($id = false){
+        if(!$id){
+            $users = User::selectRaw('users.*, organizations.name as org_name')
+            ->leftJoin("organizations", "organizations.id", "=", "users.organization_id")
+            ->get();
+        } else {
+            $users = User::selectRaw('users.*, organizations.name as org_name')
+            ->where('users.organization_id', $id)
+            ->leftJoin("organizations", "organizations.id", "=", "users.organization_id")
+            ->get();
+        }
+        
 
         return $users;
     }

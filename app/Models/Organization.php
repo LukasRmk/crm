@@ -14,10 +14,18 @@ class Organization extends Model
         'admin'
     ];
 
-    public static function findWithAdmin(){
-        $org = Organization::selectRaw('organizations.*, users.name as admin_name')
-                    ->leftJoin("users", "users.id", "=", "organizations.admin")
-                    ->get();
+    public static function findWithAdmin($id = false){
+        if(!$id){
+            $org = Organization::selectRaw('organizations.*, users.name as admin_name')
+            ->leftJoin("users", "users.id", "=", "organizations.admin")
+            ->get();
+        } else {
+            $org = Organization::selectRaw('organizations.*, users.name as admin_name')
+            ->where("organizations.id", $id)
+            ->leftJoin("users", "users.id", "=", "organizations.admin")
+            ->get();
+        }
+        
 
         return $org;
     }

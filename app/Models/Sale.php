@@ -111,7 +111,7 @@ class Sale extends Model
         $month = strtotime("-1 year", time());
         $index = 0; 
 
-        while($month < $end){
+        while($month <= $end){
             $from = date('Y-m-01', $month);
             $to = date('Y-m-t', $month);
 

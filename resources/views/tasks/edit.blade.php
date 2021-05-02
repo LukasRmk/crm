@@ -129,7 +129,7 @@
                                     </form> 
                                 </div><br>
 
-                                <pre style="font-family: Open Sans, sans-serif">{{ $comment->comment }}</pre>
+                                <pre style="font-family: Open Sans, sans-serif; white-space: pre-wrap ">{{ $comment->comment }}</pre>
                                 <b>{{ $comment->created_at }}</b>
                             </div>
                             <br>

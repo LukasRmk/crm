@@ -177,6 +177,7 @@
                 { y: {{ $yearlySales[9]['price'] }}, x: new Date({{ $yearlySales[9]['year']  }}, {{ $yearlySales[9]['month']  }}) },
                 { y: {{ $yearlySales[10]['price'] }}, x: new Date({{ $yearlySales[10]['year']  }}, {{ $yearlySales[10]['month']  }}) },
                 { y: {{ $yearlySales[11]['price'] }}, x: new Date({{ $yearlySales[11]['year']  }}, {{ $yearlySales[11]['month']  }}) },
+                { y: {{ $yearlySales[12]['price'] }}, x: new Date({{ $yearlySales[12]['year']  }}, {{ $yearlySales[12]['month']  }}) },
             ]
         }]
     });

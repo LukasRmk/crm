@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Organization;
 use App\Models\User;
+use Auth;
 
 class OrganizationController extends Controller
 {
@@ -15,7 +16,13 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-        $organizations = Organization::findWithAdmin();
+
+        if(Auth::user()->is_admin){
+            $organizations = Organization::findWithAdmin();
+        } else {
+            $organizations = Organization::findWithAdmin(Auth::user()->organization_id);
+        }
+
         return view("organizations.index", compact('organizations'));
     }
 

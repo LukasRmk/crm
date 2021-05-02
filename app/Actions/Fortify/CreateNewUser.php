@@ -3,10 +3,12 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use App\Models\Organization;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+use Illuminate\Support\Facades\DB;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -33,11 +35,17 @@ class CreateNewUser implements CreatesNewUsers
             'avatar' => 'default.jpg',
         ])->validate();
 
+        
+        $org_id = (DB::table('organizations')->select('id')->orderBy('id', 'desc')->limit(1)->first()->id) + 1;
+        $user_id = (DB::table('users')->select('id')->orderBy('id', 'desc')->limit(1)->first()->id) + 1;
+        DB::insert('INSERT INTO organizations (id, name, admin, created_at, updated_at) VALUES (?, ?, ?, ?, ?)', [$org_id, 'Nauja Organizacija', $user_id, date('Y-m-d H:i:s'), date('Y-m-d H:i:s')]);
+
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
             'avatar' => 'default.jpg',
+            'organization_id' => $org_id 
         ]);
     }
 }

@@ -69,7 +69,7 @@ class StageControllerTest extends TestCase
     public function test_destroy(){
 
         $sale = new StageController();
-        $saleDummy = Stage::find(12);
+        $saleDummy = Stage::find(27);
 
         $index = $sale->destroy($saleDummy);
 

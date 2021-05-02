@@ -97,7 +97,7 @@ class TaskControllerTest extends TestCase
     public function test_update(){
 
         $contact = new TaskController();
-        $contactDummy = Task::find(55);
+        $contactDummy = Task::find(58);
 
         $req = new Request();
 
@@ -136,7 +136,7 @@ class TaskControllerTest extends TestCase
     public function test_destroy(){
 
         $contact = new TaskController();
-        $contactDummy = Task::find(52);
+        $contactDummy = Task::find(69);
 
         $index = $contact->destroy($contactDummy);
 
@@ -146,7 +146,7 @@ class TaskControllerTest extends TestCase
     public function test_destroyComment(){
 
         $contact = new TaskController();
-        $contactDummy = TaskComment::find(25);
+        $contactDummy = TaskComment::find(37);
 
         $index = $contact->destroyComment($contactDummy);
 

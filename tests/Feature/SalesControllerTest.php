@@ -8,19 +8,9 @@ use Tests\TestCase;
 use Illuminate\Http\Request;
 use App\Http\Controllers\SalesController;
 use App\Models\Sale;
-
+use Auth;
 class SalesControllerTest extends TestCase
 {
-    public function test_index(){
-
-        $sale = new SalesController();
-        $index = $sale->index();
-        $this->assertNotNull($sale);
-
-        $response = $this->get(route('sales.index'));
-        $this->assertIsInt($response->status());
-    }
-
     public function test_create(){
 
         $sale = new SalesController();
@@ -123,7 +113,7 @@ class SalesControllerTest extends TestCase
     public function test_destroy(){
 
         $sale = new SalesController();
-        $saleDummy = Sale::find(26);
+        $saleDummy = Sale::find(38);
 
         $index = $sale->destroy($saleDummy);
 

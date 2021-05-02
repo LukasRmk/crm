@@ -61,7 +61,7 @@ class WindowControllerTest extends TestCase
     public function test_update(){
 
         $contact = new WindowController();
-        $contactDummy = Window::find(3);
+        $contactDummy = Window::find(8);
 
         $req = new Request();
 

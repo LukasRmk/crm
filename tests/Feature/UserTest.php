@@ -48,9 +48,20 @@ class UserTest extends TestCase
                 ->where("xp_needed", ">", $xp)
                 ->orderBy("xp_needed", "asc")
                 ->limit("1")
-                ->get();
+                ->first();
 
-        $this->assertEquals($levelDummy[0]->xp_needed, $level);
+        $this->assertEquals($levelDummy->xp_needed, $level);
+
+        $xp = 15000;
+
+        $level = User::getNextLevel($xp);
+        $levelDummy = DB::table("xp_levels")
+                ->where("xp_needed", "<=", $xp)
+                ->orderBy("xp_needed", "desc")
+                ->limit("1")
+                ->first();
+
+        $this->assertEquals($levelDummy->xp_needed, $level);
     }
 
 }

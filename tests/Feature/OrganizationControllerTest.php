@@ -6,14 +6,15 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Request;
 use Tests\TestCase;
-use App\Models\Contact;
-use App\Http\Controllers\ContactController;
+use App\Models\Organization;
+use App\Http\Controllers\OrganizationController;
 
-class ContactControllerTest extends TestCase
+class OrganizationControllerTest extends TestCase
 {
+
     public function test_create(){
 
-        $cont = new ContactController();
+        $cont = new OrganizationController();
         $index = $cont->create();
 
         $this->assertNotNull($index);
@@ -21,13 +22,12 @@ class ContactControllerTest extends TestCase
 
     public function test_store(){
 
-        $cont = new ContactController();
+        $cont = new OrganizationController();
         $req = new Request();
 
         $data = [
-            'contact_name' => 'name',
-            'added_by' => 1,
-            'client_id' => 1
+            'name' => 'testOrg',
+            'admin' => '1'
         ];
 
         $req->replace($data);
@@ -39,39 +39,38 @@ class ContactControllerTest extends TestCase
 
     public function test_edit(){
 
-        $contact = new ContactController();
-        $contactDummy = Contact::find(3);
+        $Organization = new OrganizationController();
+        $contactDummy = Organization::find(1);
 
-        $index = $contact->edit($contactDummy);
+        $index = $Organization->edit($contactDummy);
 
         $this->assertNotNull($index);
     }
 
     public function test_update(){
 
-        $contact = new ContactController();
-        $contactDummy = Contact::find(3);
+        $Organization = new OrganizationController();
+        $contactDummy = Organization::find(1);
 
         $req = new Request();
 
         $data = [
-            'contact_name' => 'TestName',
-            'client_id' => 1
+            'name' => 'TestName'
         ];
 
         $req->replace($data);
 
-        $index = $contact->update($req, $contactDummy);
+        $index = $Organization->update($req, $contactDummy);
 
         $this->assertNotNull($index);
     }
 
     public function test_destroy(){
 
-        $contact = new ContactController();
-        $contactDummy = contact::find(37);
+        $Organization = new OrganizationController();
+        $contactDummy = Organization::find(9);
 
-        $index = $contact->destroy($contactDummy);
+        $index = $Organization->destroy($contactDummy);
 
         $this->assertNotNull($index);
     }

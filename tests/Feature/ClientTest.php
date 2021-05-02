@@ -23,4 +23,17 @@ class ClientTest extends TestCase
 
         $this->assertEquals($dummyClients, $clients);
     }
+
+    public function test_findByOrganization(){
+        $organization_id = 1;
+
+        $clients = Client::findByOrganization($organization_id);
+
+        $dummyclients = Client::selectRaw('clients.*')
+        ->leftJoin("users", "users.id", "=", "clients.added_by")
+        ->where("users.organization_id", "=", $organization_id)
+        ->get();
+
+        $this->assertEquals($dummyclients, $clients);
+    }
 }

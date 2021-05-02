@@ -30,7 +30,7 @@ class UserControllerTest extends TestCase
         $this->assertNotNull($index);
     }
 
-    public function test_update(){
+    public function test_adminUpdate(){
 
         $contact = new UserController();
         $contactDummy = User::find(3);
@@ -38,13 +38,58 @@ class UserControllerTest extends TestCase
         $req = new Request();
 
         $data = [
-            'email' => "gytis@mail.com",
-            'name' => 'Gytis Sniečkus'
+            'email' => "test@mail.com",
+            'name' => 'testing'
         ];
 
         $req->replace($data);
 
-        $index = $contact->update($req, $contactDummy);
+        $index = $contact->adminUpdate($req, $contactDummy);
+
+        $this->assertNotNull($index);
+    }
+
+    public function test_create(){
+
+        $user = new UserController();
+        $index = $user->create();
+
+        $this->assertNotNull($index);
+    }
+
+    public function test_store(){
+
+        $user = new UserController();
+        $req = new Request();
+
+        $data = [
+            'name' => 'name',
+            'email' => 'mail@mail',
+            'password' => 'password',
+            'avatar' => 'default.jpg'
+        ];
+
+        $req->replace($data);
+
+        $index = $user->store($req);
+
+        $this->assertNotNull($index);
+    }
+
+    public function test_adminEdit(){
+        $contact = new UserController();
+        $contactDummy = User::find(3);
+
+        $index = $contact->adminEdit($contactDummy);
+
+        $this->assertNotNull($index);
+    }
+
+    public function test_destroy(){
+        $user = new UserController();
+        $userDummy = User::find(18);
+
+        $index = $user->destroy($userDummy);
 
         $this->assertNotNull($index);
     }

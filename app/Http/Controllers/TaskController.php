@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Client;
 use App\Models\Sale;
 use Illuminate\Http\Request;
+use Auth;
 
 class TaskController extends Controller
 {
@@ -47,6 +48,20 @@ class TaskController extends Controller
             'task_description' => 'required',
             'task_datetime' => 'required'
         ]);
+
+        if($request->input("type_id") == -1){
+            $new_req = new Request();
+            $data = [
+                'type_name' => $request->input("new_type"),
+                'organization_id' => Auth::user()->organization_id
+            ];
+            $new_req->replace($data);
+            $id = TaskType::create($new_req->all());
+
+            $request->merge([
+                'type_id' => $id->id,
+            ]);
+        }
 
         Task::create($request->all());
         $client = Client::find($request->input("client_id"));

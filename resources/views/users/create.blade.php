@@ -37,7 +37,7 @@
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <strong> Organizacija: </strong><br>
-                                <select id="organization_id" class="form_control" name="organization_id">
+                                <select id="organization_id" class="form-control" name="organization_id">
 
                                     @foreach ($organizations->all() as $org)
                                         <option value="{{ $org->id }}" >{{ $org->name }}</option>

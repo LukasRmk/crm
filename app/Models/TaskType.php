@@ -12,7 +12,8 @@ class TaskType extends Model
     protected $table = 'task_types';
 
     protected $fillable = [
-        'type_name'
+        'type_name',
+        'organization_id'
     ];
 
 

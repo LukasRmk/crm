@@ -47,13 +47,17 @@
 
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <strong> Užduoties tipas: </strong><br>
-                                <select id="types" class="form_control" name="type_id">
+                                <select id="types" class="form-control" name="type_id">
 
                                     @foreach ($task_types->all() as $type)
                                         <option value="{{ $type->id }}" >{{ $type->type_name }}</option>
                                     @endforeach
+                                        
+                                    <option value="-1" id="new_type" style="font-size: 8pt" >{{ __("Naujas tipas") }}</option>
 
-                                </select><br>
+                                    </select><br>
+                                <input type="text" name="new_type" id="new_type_input" class="form-control" placeholder="Naujo tipo pavadinimas..." style="display: none;" /><br>
+
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <strong> Pavadinimas: </strong>
@@ -81,7 +85,13 @@
 
 <script type="text/javascript">
 
-    
+    $('#types').on('change', function(){
+        if($(this).val() == "-1"){
+            $('#new_type_input').css("display", "block");
+        } else {
+            $('#new_type_input').css("display", "none");
+        }
+    })
 
 </script>
 

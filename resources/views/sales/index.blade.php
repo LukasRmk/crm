@@ -18,7 +18,7 @@
         <div class="card-header" id="card_header" style="height: 8vh">
             <div style="float: left">
                 <strong>Langas:</strong> &nbsp; 
-                <select id="window" class="form_control" name="window">
+                <select id="window" class="form-control" name="window">
                     <option value="" >...</option>
                     @foreach ($windows->all() as $window)
                         <option value="{{ $window->id }}" >{{ $window->name }}</option>
@@ -27,7 +27,7 @@
                 </select>
                 &nbsp; 
                 <strong>Pardavėjas:</strong> &nbsp; 
-                <select id="seller" class="form_control" name="window">
+                <select id="seller" class="form-control" name="window">
                     <option value="0" >Visi</option>
                     @foreach ($users->all() as $user)
                         <option value="{{ $user->id }}" {{ ($user->id == Auth::user()->id ) ? 'selected' : '' }} >{{ $user->name }}</option>

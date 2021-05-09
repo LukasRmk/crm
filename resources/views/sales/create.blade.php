@@ -46,7 +46,7 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <strong> Langas: </strong>
-                                <select id="window" class="form_control" name="window">
+                                <select id="window" class="form-control" name="window">
                                     <option value="" >...</option>
                                     @foreach ($windows->all() as $window)
                                         <option value="{{ $window->id }}" >{{ $window->name }}</option>
@@ -57,7 +57,7 @@
                             <br><br>
                             <div class="col-xs-12 col-sm-12 col-md-12" id="stage_div" hidden>
                                 <strong> Stadija: </strong>
-                                <select id="stage" class="form_control" name="stage">
+                                <select id="stage" class="form-control" name="stage">
 
                                     <option value="" >...</option>
                                     @foreach ($stages->all() as $stage)

@@ -37,7 +37,7 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <strong> Organizacijos administratorius: </strong>
-                                <select id="admin" class="form_control" name="admin">
+                                <select id="admin" class="form-control" name="admin">
 
                                     <option value="0" >...</option>
                                     @foreach ($users->all() as $user)
